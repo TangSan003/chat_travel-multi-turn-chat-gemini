@@ -55,8 +55,8 @@ export default function Home() {
       const reply = data.answer || "🤖 Không có phản hồi từ server."
 
       setChatHistory(prev => [...prev, { type: "bot", text: reply }])
-    } catch (_error) {
-      
+    } catch (error) {
+      console.error("Error calling API:", error)
       setChatHistory(prev => [...prev, { type: "bot", text: "❌ Lỗi khi gọi API." }])
     }
   }
