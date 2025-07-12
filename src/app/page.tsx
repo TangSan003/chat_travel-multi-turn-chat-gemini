@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from "react"
+import Image from "next/image"
 import { FiMessageSquare, FiX, FiSend } from "react-icons/fi"
 import { FaRobot, FaComments, FaLightbulb, FaCog } from "react-icons/fa"
 
@@ -29,8 +30,8 @@ export default function Home() {
   const handleSend = async () => {
     if (!message.trim()) return
 
-    const userInput = { type: "user", text: message }
-    const updatedChat = [...chatHistory, userInput]
+    const userInput: ChatMessage = { type: "user", text: message }
+    const updatedChat: ChatMessage[] = [...chatHistory, userInput]
     setChatHistory(updatedChat)
     setMessage("")
 
@@ -54,10 +55,10 @@ export default function Home() {
       const data = await response.json()
       const reply = data.answer || "🤖 Không có phản hồi từ server."
 
-      setChatHistory(prev => [...prev, { type: "bot", text: reply }])
+      setChatHistory(prev => [...prev, { type: "bot", text: reply } as ChatMessage])
     } catch (error) {
       console.error("Error calling API:", error)
-      setChatHistory(prev => [...prev, { type: "bot", text: "❌ Lỗi khi gọi API." }])
+      setChatHistory(prev => [...prev, { type: "bot", text: "❌ Lỗi khi gọi API." } as ChatMessage])
     }
   }
 
@@ -72,8 +73,8 @@ export default function Home() {
         <h2 className="text-4xl font-bold mb-6">Giới Thiệu</h2>
         <p className="mb-10 text-gray-600 text-lg">Công nghệ AI hiện đại giúp giao tiếp tự nhiên và hiệu quả</p>
         <div className="flex justify-center gap-6 flex-wrap">
-          <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a" alt="ai" className="w-60 h-40 object-cover rounded shadow-lg" />
-          <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a" alt="tech" className="w-60 h-40 object-cover rounded shadow-lg" />
+          <Image src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a" alt="ai" width={240} height={160} className="w-60 h-40 object-cover rounded shadow-lg" />
+          <Image src="https://images.unsplash.com/photo-1535378917042-10a22c95931a" alt="tech" width={240} height={160} className="w-60 h-40 object-cover rounded shadow-lg" />
         </div>
       </section>
 
